@@ -1,2 +1,4 @@
 .vercel
 node_modules
+/api2
+.env
