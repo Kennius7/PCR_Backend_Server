@@ -42,14 +42,14 @@ export default async function handler(req, res) {
         try {
             const { name, email, number, password } = req.body;
 
-            if (!name || !email || !number || !password) {
+            if (!name || !email || !password) {
                 return res.status(400).json({ success: false, error: "All fields are required" });
             }
 
             const authInstance = getAuth();
             const newUser = await createUserWithEmailAndPassword(authInstance, email, password);
             await updateProfile(newUser.user, { displayName: name });
-            await addDoc(collection(db, "PCR-USER-DATA"), { name, email, number });
+            await addDoc(collection(db, "PCR-USER-DATA"), { name, email });
             console.log("User Created:", newUser.user.email);
             console.log(newUser);
             const displayName = newUser?.user?.displayName.split(" ")[0] || "User";
