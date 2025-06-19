@@ -48,15 +48,33 @@ export default async function handler(req, res) {
         }
     }
 
-    //Fetch Products Data Block
-    if (req.method === "POST" && req.body.apiType === "GETPRODUCTS") {
+    // Post Products (Saved Data) Block
+    if (req.method === "POST" && req?.body?.apiType === "POST_SAVED_PROPERTY_DATA") {
         try {
-            const querySnapshot = await getDocs(collection(db, "judyhub-products"));
+            const { companyName, companyType, headerTitle, officeAddress, 
+                officeEmail, phoneNumberData, officeWebsite, propertyData } = req.body;
+            const docRef = doc(db, "PCR-DATA", "PropertyData");
+            await updateDoc(docRef, { companyName, companyType, headerTitle, officeAddress, 
+                officeEmail, phoneNumberData, officeWebsite, propertyData });
+            const message = `Successfully posted initial data`;
+            console.log(message);
+            return res.status(200).json({ success: true, message: message });
+        } catch (error) {
+            console.log("Checking POST Method ERROR...", res.statusCode);
+            console.log(error);
+            return res.status(500).json({ error: `Error: ${error.message}` });
+        }
+    }
+
+    //Fetch Products Data Block
+    if (req.method === "GET" && req.body.apiType === "GETPRODUCTS") {
+        try {
+            const querySnapshot = await getDocs(collection(db, "PCR-DATA"));
             const filteredData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             console.log("Filtered Data: ", filteredData);
-            const allProducts = filteredData[0].allProducts;
-            console.log("Arrayed Data:>>>>", allProducts);
-            return res.status(200).json({ data: allProducts, message: "Data was fetched successfully" });
+            // const allProducts = filteredData[0].allProducts;
+            // console.log("Arrayed Data:>>>>", allProducts);
+            return res.status(200).json({ data: filteredData, message: "Data was fetched successfully" });
         } catch (error) {
             console.log("Checking ERROR FETCHING...", res.statusCode, error.message);
             return res.json({ error: `Couldn't fetch Data. Error: ${error.message}` });
