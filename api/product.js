@@ -21,12 +21,12 @@ export default async function handler(req, res) {
     }
 
     // Post Products (Initial Data) Block
-    if (req.method === "POST" && req?.body?.apiType === "POSTPRODUCTDATA") {
+    if (req.method === "POST" && req?.body?.apiType === "POST_INIT_PROPERTY_DATA") {
         try {
             const { allProducts } = req.body;
-            const docRef = doc(db, "judyhub-products", "products");
+            const docRef = doc(db, "PCR-DATA", "PropertyData");
             await updateDoc(docRef, { allProducts });
-            const message = `Successfully posted data`;
+            const message = `Successfully posted initial data`;
             console.log(message);
             return res.status(200).json({ success: true, message: message });
         } catch (error) {
