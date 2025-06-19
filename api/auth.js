@@ -9,14 +9,13 @@ require('dotenv').config();
 
 
 const pcrDatabaseSecretKey = process.env.PCR_DATABASE_SECRET_KEY;
-console.log(typeof process.env.FIREBASE_PRIVATE_KEY);
 
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert({
-            projectId: "pcr-database",
+            projectId: process.env.FIREBASE_PROJECT_ID,
             clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-            privateKey: process.env.FIREBASE_SERVICE_PRIVATE_KEY?.replace(/\\n/g, '\n').toString(),
+            privateKey: process.env.FIREBASE_SERVICE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
         }),
         databaseURL: 'https://pcr-database.firebaseio.com',
     });
