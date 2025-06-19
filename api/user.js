@@ -63,11 +63,11 @@ export default async function handler(req, res) {
             })
 
             console.log("User: >>>>>", user);
-            const q = query(collection(db, "User_Data"), where("email", "==", user.email));
+            const q = query(collection(db, "PCR-USER-DATA"), where("email", "==", user.email));
             const querySnapshot = await getDocs(q);
             const filteredData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             console.log("Filtered Data: ", filteredData);
-            const { name, email, number, image, address, cartData } = filteredData[0];
+            const { name, email, number } = filteredData[0];
             const fetchedData = { name: name, email: email, number: number };
 
             console.log("Fetched Data: >>>", fetchedData);
