@@ -5,7 +5,16 @@ const { db } = require("../FirebaseConfig.js");
 require('dotenv').config();
 
 
-
+// Clean the data before updating
+const cleanData = (data) => {
+    const cleaned = {};
+    Object.keys(data).forEach(key => {
+        if (data[key] !== undefined) {
+        cleaned[key] = data[key];
+        }
+    });
+    return cleaned;
+};
 
 export default async function handler(req, res) {
     console.log("Checking...");
@@ -26,7 +35,7 @@ export default async function handler(req, res) {
         try {
             const { allProducts } = req.body;
             const docRef = doc(db, "PCR-DATA", "PropertyData");
-            await updateDoc(docRef, { allProducts });
+            await updateDoc(docRef, { allProducts: cleanData(allProducts) });
             const message = `Successfully posted initial data`;
             console.log(message);
             return res.status(200).json({ success: true, message: message });
