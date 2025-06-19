@@ -33,10 +33,8 @@ export default async function handler(req, res) {
     // Post Products (Initial Data) Block
     if (req.method === "POST" && req?.body?.apiType === "POST_INIT_PROPERTY_DATA") {
         try {
-            const { allProducts: { 
-                companyName, companyType, headerTitle, officeAddress, 
-                officeEmail, phoneNumberData, officeWebsite, propertyData 
-            }} = req.body;
+            const { companyName, companyType, headerTitle, officeAddress, 
+                officeEmail, phoneNumberData, officeWebsite, propertyData } = req.body;
             const docRef = doc(db, "PCR-DATA", "PropertyData");
             await updateDoc(docRef, { companyName, companyType, headerTitle, officeAddress, 
                 officeEmail, phoneNumberData, officeWebsite, propertyData });
