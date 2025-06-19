@@ -19,7 +19,7 @@ require('dotenv').config();
 export default async function handler(req, res) {
     console.log("Checking...");
     // console.log("Request API Type:>>>", req?.body?.apiType);
-    console.log("Request API Type:>>>", req?.params?.apiType);
+    console.log("Request API Type:>>>", req?.query?.apiType);
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
     }
 
     //Fetch Products Data Block
-    if (req.method === "GET" && req.params.apiType === "GETPRODUCTS") {
+    if (req.method === "GET" && req.query.apiType === "GETPRODUCTS") {
         try {
             const querySnapshot = await getDocs(collection(db, "PCR-DATA"));
             const filteredData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
