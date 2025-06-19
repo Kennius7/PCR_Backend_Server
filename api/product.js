@@ -6,19 +6,20 @@ require('dotenv').config();
 
 
 // Clean the data before updating
-const cleanData = (data) => {
-    const cleaned = {};
-    Object.keys(data).forEach(key => {
-        if (data[key] !== undefined) {
-        cleaned[key] = data[key];
-        }
-    });
-    return cleaned;
-};
+// const cleanData = (data) => {
+//     const cleaned = {};
+//     Object.keys(data).forEach(key => {
+//         if (data[key] !== undefined) {
+//         cleaned[key] = data[key];
+//         }
+//     });
+//     return cleaned;
+// };
 
 export default async function handler(req, res) {
     console.log("Checking...");
-    console.log("Request API Type:>>>", req?.body?.apiType);
+    // console.log("Request API Type:>>>", req?.body?.apiType);
+    console.log("Request API Type:>>>", req?.params?.apiType);
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -67,7 +68,7 @@ export default async function handler(req, res) {
     }
 
     //Fetch Products Data Block
-    if (req.method === "GET" && req.body.apiType === "GETPRODUCTS") {
+    if (req.method === "GET" && req.params.apiType === "GETPRODUCTS") {
         try {
             const querySnapshot = await getDocs(collection(db, "PCR-DATA"));
             const filteredData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
