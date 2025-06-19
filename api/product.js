@@ -18,7 +18,7 @@ const cleanData = (data) => {
 
 export default async function handler(req, res) {
     console.log("Checking...");
-    console.log("Request API Type:>>>", req.body.apiType);
+    console.log("Request API Type:>>>", req.body);
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
