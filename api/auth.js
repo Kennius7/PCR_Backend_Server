@@ -98,7 +98,7 @@ export default async function handler(req, res) {
         try {
             const { name } = req.body;
             await signOut(auth);
-            const message = `Signed out, ${name.split(" ")[0]}`;
+            const message = `Signed out, ${name?.split(" ")[0]}`;
             console.log(message);
             return res.status(200).json({ success: true, message: message });
         } catch (error) {
