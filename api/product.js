@@ -18,7 +18,7 @@ const cleanData = (data) => {
 
 export default async function handler(req, res) {
     console.log("Checking...");
-    console.log("Request API Type:>>>", req.body);
+    console.log("Request API Type:>>>", req?.body?.apiType);
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -33,9 +33,13 @@ export default async function handler(req, res) {
     // Post Products (Initial Data) Block
     if (req.method === "POST" && req?.body?.apiType === "POST_INIT_PROPERTY_DATA") {
         try {
-            const { allProducts } = req.body;
+            const { allProducts: { 
+                companyName, companyType, headerTitle, officeAddress, 
+                officeEmail, phoneNumberData, officeWebsite, propertyData 
+            }} = req.body;
             const docRef = doc(db, "PCR-DATA", "PropertyData");
-            await updateDoc(docRef, { allProducts: cleanData(allProducts) });
+            await updateDoc(docRef, { companyName, companyType, headerTitle, officeAddress, 
+                officeEmail, phoneNumberData, officeWebsite, propertyData });
             const message = `Successfully posted initial data`;
             console.log(message);
             return res.status(200).json({ success: true, message: message });
