@@ -15,7 +15,7 @@ if (!admin.apps.length) {
         credential: admin.credential.cert({
             projectId: "pcr-database",
             clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-            privateKey: process.env.FIREBASE_SERVICE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+            privateKey: process.env.FIREBASE_SERVICE_PRIVATE_KEY?.replace(/\\n/g, '\n').toString(),
         }),
         databaseURL: 'https://pcr-database.firebaseio.com',
     });
