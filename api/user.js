@@ -7,6 +7,7 @@ const admin = require("firebase-admin");
 require('dotenv').config();
 
 
+
 const pcrDatabaseSecretKey = process.env.PCR_DATABASE_SECRET_KEY;
 
 if (!admin.apps.length) {
