@@ -9,6 +9,7 @@ require('dotenv').config();
 
 
 const pcrDatabaseSecretKey = process.env.PCR_DATABASE_SECRET_KEY;
+console.log(typeof process.env.FIREBASE_PRIVATE_KEY);
 
 if (!admin.apps.length) {
     admin.initializeApp({
