@@ -3,7 +3,7 @@ const { initializeApp } = require("firebase/app");
 const { getAuth, GoogleAuthProvider } = require("firebase/auth");
 const { getFirestore } = require("firebase/firestore");
 const { getStorage } = require("firebase/storage");
-const { initializeApp } = require("firebase/app");
+// const { initializeApp } = require("firebase/app");
 // import { getAnalytics } from "firebase/analytics";
 require('dotenv').config();
 
